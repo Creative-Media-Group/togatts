@@ -1,25 +1,83 @@
-"""
-My first application
-"""
-
 import toga
 from toga.style import Pack
 from toga.style.pack import COLUMN, ROW
+from mylocale.TR import tr
+import locale
+import pyttsx3
+
+lang = locale.getlocale()[0]
+engine = pyttsx3.init()
+voicelanglist = engine.getProperty("voices")
+languages = [
+    ("English", "English"),
+    ("German", "Deutsch"),
+    ("French", "Français"),
+    ("Spanish", "Español"),
+    ("Italian", "Italiano"),
+    ("Portuguese", "Português"),
+    ("Dutch", "Nederlands"),
+    ("Russian", "Русский"),
+    ("Chinese", "中文"),
+    ("Japanese", "日本語"),
+    ("Korean", "한국어"),
+    ("Arabic", "العربية"),
+    ("Hindi", "हिन्दी"),
+    ("Bengali", "বাংলা"),
+    ("Turkish", "Türkçe"),
+    ("Hebrew", "עברית"),
+    ("Polish", "Polski"),
+    ("Swedish", "Svenska"),
+    ("Danish", "Dansk"),
+    ("Finnish", "Suomi"),
+    ("Norwegian", "Norsk"),
+    ("Greek", "Ελληνικά"),
+    ("Czech", "Čeština"),
+    ("Hungarian", "Magyar"),
+    ("Romanian", "Română"),
+    ("Bulgarian", "Български"),
+    ("Vietnamese", "Tiếng Việt"),
+    ("Thai", "ไทย"),
+    ("Indonesian", "Bahasa Indonesia"),
+    ("Malay", "Bahasa Melayu"),
+    ("Swahili", "Kiswahili"),
+    ("Afrikaans", "Afrikaans"),
+]
+# print(voicelanglist)
+for language in languages:
+    # print(language)
+    for voice in voicelanglist:
+        if language[0] in voice.name.lower() or language[1] in voice.name.lower():
+            engine.setProperty("voice", voice.id)
+            print(voice.id)
+            break
 
 
 class TogaTTS(toga.App):
     def startup(self):
-        """Construct and show the Toga application.
-
-        Usually, you would add your application to a main content box.
-        We then create a main window (with a name matching the app), and
-        show the main window.
-        """
+        self.file = f"{self.paths.app.absolute()}/resources/localisation.csv"
         main_box = toga.Box()
-
+        self.text = toga.TextInput(
+            placeholder=tr(
+                csv_file=self.file, target_key="TEXTPLACEHOLDER", langcode=lang
+            ),
+            style=Pack(padding=10, flex=1),
+        )
+        speak_button = toga.Button(
+            text=tr(csv_file=self.file, target_key="SPEAKBUTTON", langcode=lang),
+            style=Pack(padding=10, flex=1),
+            on_press=self.speak,
+        )
+        main_box.add(self.text)
+        main_box.add(speak_button)
+        main_box.style.direction = "column"
         self.main_window = toga.MainWindow(title=self.formal_name)
         self.main_window.content = main_box
         self.main_window.show()
+
+    def speak(self, widget):
+        engine = pyttsx3.init()
+        engine.say(self.text.value)
+        engine.runAndWait()
 
 
 def main():

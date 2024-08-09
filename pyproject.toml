@@ -21,6 +21,8 @@ test_sources = [
 ]
 
 requires = [
+    "mylocale",
+    "pyttsx3"
 ]
 test_requires = [
     "pytest",
