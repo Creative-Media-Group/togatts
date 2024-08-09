@@ -71,6 +71,7 @@ class TogaTTS(toga.App):
             on_press=self.speak,
         )
         main_box.add(self.text)
+        main_box.add(self.select_lang)
         main_box.add(speak_button)
         main_box.style.direction = "column"
         self.main_window = toga.MainWindow(title=self.formal_name)
