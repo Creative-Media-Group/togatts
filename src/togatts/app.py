@@ -9,47 +9,47 @@ lang = locale.getlocale()[0]
 engine = pyttsx3.init()
 voicelanglist = engine.getProperty("voices")
 languages = [
-    ("English", "English"),
-    ("German", "Deutsch"),
-    ("French", "Français"),
-    ("Spanish", "Español"),
-    ("Italian", "Italiano"),
-    ("Portuguese", "Português"),
-    ("Dutch", "Nederlands"),
-    ("Russian", "Русский"),
-    ("Chinese", "中文"),
-    ("Japanese", "日本語"),
-    ("Korean", "한국어"),
-    ("Arabic", "العربية"),
-    ("Hindi", "हिन्दी"),
-    ("Bengali", "বাংলা"),
-    ("Turkish", "Türkçe"),
-    ("Hebrew", "עברית"),
-    ("Polish", "Polski"),
-    ("Swedish", "Svenska"),
-    ("Danish", "Dansk"),
-    ("Finnish", "Suomi"),
-    ("Norwegian", "Norsk"),
-    ("Greek", "Ελληνικά"),
-    ("Czech", "Čeština"),
-    ("Hungarian", "Magyar"),
-    ("Romanian", "Română"),
-    ("Bulgarian", "Български"),
-    ("Vietnamese", "Tiếng Việt"),
-    ("Thai", "ไทย"),
-    ("Indonesian", "Bahasa Indonesia"),
-    ("Malay", "Bahasa Melayu"),
-    ("Swahili", "Kiswahili"),
-    ("Afrikaans", "Afrikaans"),
+    "english",
+    "german",
+    "french",
+    "spanish",
+    "italian",
+    "portuguese",
+    "dutch",
+    "russian",
+    "chinese",
+    "japanese",
+    "korean",
+    "arabic",
+    "hindi",
+    "bengali",
+    "turkish",
+    "hebrew",
+    "polish",
+    "swedish",
+    "danish",
+    "finnish",
+    "norwegian",
+    "greek",
+    "czech",
+    "hungarian",
+    "romanian",
+    "bulgarian",
+    "vietnamese",
+    "thai",
+    "indonesian",
+    "malay",
+    "swahili",
+    "afrikaans",
 ]
 # print(voicelanglist)
-for language in languages:
-    # print(language)
-    for voice in voicelanglist:
-        if language[0] in voice.name.lower() or language[1] in voice.name.lower():
-            engine.setProperty("voice", voice.id)
-            print(voice.id)
-            break
+# for voice in voicelanglist:
+#    for language in languages:
+#        if language in voice.name.lower():
+#            print(language)
+#            engine.setProperty("voice", voice.id)
+#            print(voice.id)
+#            break
 
 
 class TogaTTS(toga.App):
@@ -62,6 +62,7 @@ class TogaTTS(toga.App):
             ),
             style=Pack(padding=10, flex=1),
         )
+        self.select_lang = toga.Selection(items=languages)
         speak_button = toga.Button(
             text=tr(csv_file=self.file, target_key="SPEAKBUTTON", langcode=lang),
             style=Pack(padding=10, flex=1),
@@ -75,7 +76,10 @@ class TogaTTS(toga.App):
         self.main_window.show()
 
     def speak(self, widget):
-        engine = pyttsx3.init()
+        for voice in voicelanglist:
+            if self.select_lang.value in voice.name.lower():
+                engine.setProperty("voice", voice.id)
+                print(voice.id)
         engine.say(self.text.value)
         engine.runAndWait()
 
