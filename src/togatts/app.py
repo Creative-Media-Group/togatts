@@ -62,7 +62,9 @@ class TogaTTS(toga.App):
             ),
             style=Pack(padding=10, flex=1),
         )
-        self.select_lang = toga.Selection(items=languages)
+        self.select_lang = toga.Selection(
+            items=languages, style=Pack(padding=10, flex=1)
+        )
         speak_button = toga.Button(
             text=tr(csv_file=self.file, target_key="SPEAKBUTTON", langcode=lang),
             style=Pack(padding=10, flex=1),
