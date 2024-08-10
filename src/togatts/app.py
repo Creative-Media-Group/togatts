@@ -5,7 +5,6 @@ from mylocale.TR import tr
 import locale
 import pyttsx3
 
-lang = locale.getlocale()[0]
 engine = pyttsx3.init()
 voicelanglist = engine.getProperty("voices")
 languages = [
@@ -54,11 +53,12 @@ languages = [
 
 class TogaTTS(toga.App):
     def startup(self):
+        self.lang = locale.getlocale()[0]
         self.file = f"{self.paths.app.absolute()}/resources/localisation.csv"
         main_box = toga.Box()
         self.text = toga.TextInput(
             placeholder=tr(
-                csv_file=self.file, target_key="TEXTPLACEHOLDER", langcode=lang
+                csv_file=self.file, target_key="TEXTPLACEHOLDER", langcode=self.lang
             ),
             style=Pack(padding=10, flex=1),
         )
@@ -66,7 +66,7 @@ class TogaTTS(toga.App):
             items=languages, style=Pack(padding=10, flex=1)
         )
         speak_button = toga.Button(
-            text=tr(csv_file=self.file, target_key="SPEAKBUTTON", langcode=lang),
+            text=tr(csv_file=self.file, target_key="SPEAKBUTTON", langcode=self.lang),
             style=Pack(padding=10, flex=1),
             on_press=self.speak,
         )
@@ -82,7 +82,6 @@ class TogaTTS(toga.App):
         for voice in voicelanglist:
             if self.select_lang.value in voice.name.lower():
                 engine.setProperty("voice", voice.id)
-                print(voice.id)
         engine.say(self.text.value)
         engine.runAndWait()
 
