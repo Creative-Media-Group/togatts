@@ -73,7 +73,7 @@ class TogaTTS(toga.App):
         save_button = toga.Button(
             text=tr(csv_file=self.file, target_key="SAVEBUTTON", langcode=self.lang),
             style=Pack(padding=10, flex=1),
-            on_press=self.speak,
+            on_press=self.save,
         )
         main_box.add(self.text)
         main_box.add(self.select_lang)
