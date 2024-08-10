@@ -70,9 +70,15 @@ class TogaTTS(toga.App):
             style=Pack(padding=10, flex=1),
             on_press=self.speak,
         )
+        save_button = toga.Button(
+            text=tr(csv_file=self.file, target_key="SAVEBUTTON", langcode=self.lang),
+            style=Pack(padding=10, flex=1),
+            on_press=self.speak,
+        )
         main_box.add(self.text)
         main_box.add(self.select_lang)
         main_box.add(speak_button)
+        main_box.add(save_button)
         main_box.style.direction = "column"
         self.main_window = toga.MainWindow(title=self.formal_name)
         self.main_window.content = main_box
@@ -84,6 +90,15 @@ class TogaTTS(toga.App):
                 if self.select_lang.value in voice.name.lower():
                     engine.setProperty("voice", voice.id)
             engine.say(self.text.value)
+            engine.runAndWait()
+        except:
+            pass
+    def save(self, widget):
+        try:
+            for voice in voicelanglist:
+                if self.select_lang.value in voice.name.lower():
+                    engine.setProperty("voice", voice.id)
+            engine.save_to_file(self.text.value,filename=f"{self.text.value}.mp3")
             engine.runAndWait()
         except:
             pass

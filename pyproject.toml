@@ -2,7 +2,7 @@
 [tool.briefcase]
 project_name = "Toga TTS"
 bundle = "de.cmg"
-version = "0.0.2"
+version = "0.0.3"
 url = "https://cmg.de/togatts"
 license.file = "LICENSE"
 author = "Jane Developer"
