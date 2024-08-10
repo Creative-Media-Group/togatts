@@ -56,7 +56,7 @@ class TogaTTS(toga.App):
         self.lang = locale.getlocale()[0]
         self.file = f"{self.paths.app.absolute()}/resources/localisation.csv"
         main_box = toga.Box()
-        self.text = toga.TextInput(
+        self.text = toga.MultilineTextInput(
             placeholder=tr(
                 csv_file=self.file, target_key="TEXTPLACEHOLDER", langcode=self.lang
             ),
