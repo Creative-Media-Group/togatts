@@ -79,11 +79,14 @@ class TogaTTS(toga.App):
         self.main_window.show()
 
     def speak(self, widget):
-        for voice in voicelanglist:
-            if self.select_lang.value in voice.name.lower():
-                engine.setProperty("voice", voice.id)
-        engine.say(self.text.value)
-        engine.runAndWait()
+        try:
+            for voice in voicelanglist:
+                if self.select_lang.value in voice.name.lower():
+                    engine.setProperty("voice", voice.id)
+            engine.say(self.text.value)
+            engine.runAndWait()
+        except:
+            pass
 
 
 def main():
