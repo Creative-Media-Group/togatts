@@ -93,12 +93,13 @@ class TogaTTS(toga.App):
             engine.runAndWait()
         except:
             pass
+
     def save(self, widget):
         try:
             for voice in voicelanglist:
                 if self.select_lang.value in voice.name.lower():
                     engine.setProperty("voice", voice.id)
-            engine.save_to_file(self.text.value,filename=f"{self.text.value}.mp3")
+            engine.save_to_file(self.text.value, filename=f"{self.text.value}.mp3")
             engine.runAndWait()
         except:
             pass
