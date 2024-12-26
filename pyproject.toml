@@ -32,7 +32,7 @@ system_requires = [
     "libcairo2-dev",
     # Needed to compile PyGObject wheel
     "libgirepository1.0-dev",
-    "espeak",
+    "espeak-ng",
     "ffmpeg",
     "libespeak1",
 ]
@@ -54,9 +54,10 @@ system_requires = [
     "cairo-gobject-devel",
     # Needed to compile PyGObject wheel
     "gobject-introspection-devel",
-    "espeak",
     "ffmpeg-free-devel",
     "ffmpeg-free",
+    "espeak-ng",
+    "espeak-ng-devel",
 ]
 
 system_runtime_requires = [

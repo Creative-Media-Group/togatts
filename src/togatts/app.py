@@ -8,45 +8,40 @@ import pyttsx3
 
 class TogaTTS(toga.App):
     def startup(self):
-        self.engine = pyttsx3.init()
-        self.voicelanglist = self.engine.getProperty("voices")
-        for voice in self.voicelanglist:
-            print(voice)
-        print(self.voicelanglist)
-        # languages = [
-        #    "english",
-        #    "german",
-        #    "french",
-        #    "spanish",
-        #    "italian",
-        #    "portuguese",
-        #    "dutch",
-        #    "russian",
-        #    "chinese",
-        #    "japanese",
-        #    "korean",
-        #    "arabic",
-        #    "hindi",
-        #    "bengali",
-        #    "turkish",
-        #    "hebrew",
-        #    "polish",
-        #    "swedish",
-        #    "danish",
-        #    "finnish",
-        #    "norwegian",
-        #    "greek",
-        #    "czech",
-        #    "hungarian",
-        #    "romanian",
-        #    "bulgarian",
-        #    "vietnamese",
-        #    "thai",
-        #    "indonesian",
-        #    "malay",
-        #    "swahili",
-        #    "afrikaans",
-        # ]
+        languages = [
+            "english",
+            "german",
+            "french",
+            "spanish",
+            "italian",
+            "portuguese",
+            "dutch",
+            "russian",
+            "chinese",
+            "japanese",
+            "korean",
+            "arabic",
+            "hindi",
+            "bengali",
+            "turkish",
+            "hebrew",
+            "polish",
+            "swedish",
+            "danish",
+            "finnish",
+            "norwegian",
+            "greek",
+            "czech",
+            "hungarian",
+            "romanian",
+            "bulgarian",
+            "vietnamese",
+            "thai",
+            "indonesian",
+            "malay",
+            "swahili",
+            "afrikaans",
+        ]
         self.lang = locale.getlocale()[0]
         self.file = f"{self.paths.app.absolute()}/resources/localisation.csv"
         main_box = toga.Box()
@@ -62,12 +57,12 @@ class TogaTTS(toga.App):
         speak_button = toga.Button(
             text=tr(csv_file=self.file, target_key="SPEAKBUTTON", langcode=self.lang),
             style=Pack(padding=10, flex=1),
-            on_press=self.speak,
+            on_press=lambda _: self.speak(text=self.text.value),
         )
         save_button = toga.Button(
             text=tr(csv_file=self.file, target_key="SAVEBUTTON", langcode=self.lang),
             style=Pack(padding=10, flex=1),
-            on_press=self.save,
+            on_press=lambda _: self.save(text=self.text.value),
         )
         main_box.add(self.text)
         main_box.add(self.select_lang)
@@ -78,25 +73,15 @@ class TogaTTS(toga.App):
         self.main_window.content = main_box
         self.main_window.show()
 
-    def speak(self, widget):
-        try:
-            for voice in self.voicelanglist:
-                if self.select_lang.value in voice.name.lower():
-                    self.engine.setProperty("voice", voice.id)
-            self.engine.say(self.text.value)
-            self.engine.runAndWait()
-        except:
-            pass
+    def speak(self, text):
+        engine = pyttsx3.init()
+        engine.say(text=text)
+        engine.runAndWait()
 
-    def save(self, widget):
-        try:
-            for voice in self.voicelanglist:
-                if self.select_lang.value in voice.name.lower():
-                    self.engine.setProperty("voice", voice.id)
-            self.engine.save_to_file(self.text.value, filename=f"{self.text.value}.mp3")
-            self.engine.runAndWait()
-        except:
-            pass
+    def save(self, text):
+        engine = pyttsx3.init()
+        engine.save_to_file(text=text, filename=f"{self.text.value}.mp3")
+        engine.runAndWait()
 
 
 def main():
