@@ -55,7 +55,8 @@ system_requires = [
     # Needed to compile PyGObject wheel
     "gobject-introspection-devel",
     "espeak",
-    "ffmpeg",
+    "ffmpeg-free-devel",
+    "ffmpeg-free",
 ]
 
 system_runtime_requires = [
@@ -66,7 +67,7 @@ system_runtime_requires = [
     # Dependencies that GTK looks for at runtime
     "libcanberra-gtk3",
     # Needed to provide WebKit2 at runtime
-    # "webkit2gtk3",
+    "webkit2gtk3",
 ]
 
 [tool.briefcase.app.togatts.linux.system.suse]
@@ -114,7 +115,7 @@ system_runtime_requires = [
     # Dependencies that GTK looks for at runtime
     "libcanberra",
     # Needed to provide WebKit2 at runtime
-    # "webkit2gtk",
+    "webkit2gtk",
 ]
 
 [tool.briefcase.app.togatts.linux.appimage]

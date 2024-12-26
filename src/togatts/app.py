@@ -5,54 +5,48 @@ from mylocale.TR import tr
 import locale
 import pyttsx3
 
-engine = pyttsx3.init()
-voicelanglist = engine.getProperty("voices")
-languages = [
-    "english",
-    "german",
-    "french",
-    "spanish",
-    "italian",
-    "portuguese",
-    "dutch",
-    "russian",
-    "chinese",
-    "japanese",
-    "korean",
-    "arabic",
-    "hindi",
-    "bengali",
-    "turkish",
-    "hebrew",
-    "polish",
-    "swedish",
-    "danish",
-    "finnish",
-    "norwegian",
-    "greek",
-    "czech",
-    "hungarian",
-    "romanian",
-    "bulgarian",
-    "vietnamese",
-    "thai",
-    "indonesian",
-    "malay",
-    "swahili",
-    "afrikaans",
-]
-# print(voicelanglist)
-# for voice in voicelanglist:
-#    for language in languages:
-#        if language in voice.name.lower():
-#            print(language)
-#            engine.setProperty("voice", voice.id)
-#            print(voice.id)
-#            break
-
 
 class TogaTTS(toga.App):
     def startup(self):
+        self.engine = pyttsx3.init()
+        self.voicelanglist = self.engine.getProperty("voices")
+        for voice in self.voicelanglist:
+            print(voice)
+        print(self.voicelanglist)
+        # languages = [
+        #    "english",
+        #    "german",
+        #    "french",
+        #    "spanish",
+        #    "italian",
+        #    "portuguese",
+        #    "dutch",
+        #    "russian",
+        #    "chinese",
+        #    "japanese",
+        #    "korean",
+        #    "arabic",
+        #    "hindi",
+        #    "bengali",
+        #    "turkish",
+        #    "hebrew",
+        #    "polish",
+        #    "swedish",
+        #    "danish",
+        #    "finnish",
+        #    "norwegian",
+        #    "greek",
+        #    "czech",
+        #    "hungarian",
+        #    "romanian",
+        #    "bulgarian",
+        #    "vietnamese",
+        #    "thai",
+        #    "indonesian",
+        #    "malay",
+        #    "swahili",
+        #    "afrikaans",
+        # ]
         self.lang = locale.getlocale()[0]
         self.file = f"{self.paths.app.absolute()}/resources/localisation.csv"
         main_box = toga.Box()
@@ -86,21 +80,21 @@ class TogaTTS(toga.App):
 
     def speak(self, widget):
         try:
-            for voice in voicelanglist:
+            for voice in self.voicelanglist:
                 if self.select_lang.value in voice.name.lower():
-                    engine.setProperty("voice", voice.id)
-            engine.say(self.text.value)
-            engine.runAndWait()
+                    self.engine.setProperty("voice", voice.id)
+            self.engine.say(self.text.value)
+            self.engine.runAndWait()
         except:
             pass
 
     def save(self, widget):
         try:
-            for voice in voicelanglist:
+            for voice in self.voicelanglist:
                 if self.select_lang.value in voice.name.lower():
-                    engine.setProperty("voice", voice.id)
-            engine.save_to_file(self.text.value, filename=f"{self.text.value}.mp3")
-            engine.runAndWait()
+                    self.engine.setProperty("voice", voice.id)
+            self.engine.save_to_file(self.text.value, filename=f"{self.text.value}.mp3")
+            self.engine.runAndWait()
         except:
             pass
 
