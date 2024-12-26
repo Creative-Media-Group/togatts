@@ -17,40 +17,7 @@ else:
 
 class TogaTTS(toga.App):
     def startup(self):
-        languages = [
-            "english",
-            "german",
-            "french",
-            "spanish",
-            "italian",
-            "portuguese",
-            "dutch",
-            "russian",
-            "chinese",
-            "japanese",
-            "korean",
-            "arabic",
-            "hindi",
-            "bengali",
-            "turkish",
-            "hebrew",
-            "polish",
-            "swedish",
-            "danish",
-            "finnish",
-            "norwegian",
-            "greek",
-            "czech",
-            "hungarian",
-            "romanian",
-            "bulgarian",
-            "vietnamese",
-            "thai",
-            "indonesian",
-            "malay",
-            "swahili",
-            "afrikaans",
-        ]
+        languages = ["de", "en"]
         self.lang = locale.getlocale()[0]
         self.file = f"{self.paths.app.absolute()}/resources/localisation.csv"
         main_box = toga.Box()
@@ -83,7 +50,9 @@ class TogaTTS(toga.App):
         self.main_window.show()
 
     def speak(self, text):
-        path = f"{self.paths.app.absolute()}/resources/"
+        path = f"{self.paths.app.absolute()}/resources/tmp.mp3"
+        tts = gTTS(text=text, lang=self.select_lang.value)
+        tts.save(path)
         if platform != "android" and platform != "ios":
             sound = path
             playsound.playsound(sound=sound)
@@ -95,9 +64,9 @@ class TogaTTS(toga.App):
             player.start()
 
     def save(self, text):
-        engine = pyttsx3.init()
-        engine.save_to_file(text=text, filename=f"{self.text.value}.mp3")
-        engine.runAndWait()
+        path = f"{self.paths.app.absolute()}/resources/tmp.mp3"
+        tts = gTTS(text=text, lang=self.select_lang.value)
+        tts.save(path)
 
 
 def main():
