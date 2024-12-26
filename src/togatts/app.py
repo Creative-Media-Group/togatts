@@ -3,7 +3,16 @@ from toga.style import Pack
 from toga.style.pack import COLUMN, ROW
 from mylocale.TR import tr
 import locale
-import pyttsx3
+from gtts import gTTS
+
+platform = toga.platform.current_platform
+
+if platform != "android" and platform != "ios":
+    import playsound
+    from pathlib import Path
+else:
+    from android.media import MediaPlayer
+    from os.path import dirname, join
 
 
 class TogaTTS(toga.App):
@@ -74,9 +83,16 @@ class TogaTTS(toga.App):
         self.main_window.show()
 
     def speak(self, text):
-        engine = pyttsx3.init()
-        engine.say(text=text)
-        engine.runAndWait()
+        path = f"{self.paths.app.absolute()}/resources/"
+        if platform != "android" and platform != "ios":
+            sound = path
+            playsound.playsound(sound=sound)
+        else:
+            player = MediaPlayer()
+            sound = path  # "resources/happy-birthday-whistled.wav"
+            player.setDataSource(sound)
+            player.prepare()
+            player.start()
 
     def save(self, text):
         engine = pyttsx3.init()
