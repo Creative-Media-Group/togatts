@@ -13,32 +13,18 @@ formal_name = "Toga TTS"
 description = "My first application"
 long_description = """More details about the app should go here.
 """
-sources = [
-    "src/togatts",
-]
-test_sources = [
-    "tests",
-]
+sources = ["src/togatts"]
+test_sources = ["tests"]
 
-requires = [
-    "mylocale",
-    "pyttsx3"
-]
-test_requires = [
-    "pytest",
-]
+requires = ["mylocale", "pyttsx3"]
+test_requires = ["pytest"]
 
 [tool.briefcase.app.togatts.macOS]
 universal_build = true
-requires = [
-    "toga-cocoa~=0.4.8",
-    "std-nslog~=1.0.3",
-]
+requires = ["toga-cocoa~=0.4.8", "std-nslog~=1.0.3"]
 
 [tool.briefcase.app.togatts.linux]
-requires = [
-    "toga-gtk~=0.4.8",
-]
+requires = ["toga-gtk~=0.4.8"]
 
 [tool.briefcase.app.togatts.linux.system.debian]
 system_requires = [
@@ -93,11 +79,13 @@ system_runtime_requires = [
     # Needed to provide GTK
     "gtk3",
     # Needed to support Python bindings to GTK
-    "gobject-introspection", "typelib(Gtk) = 3.0",
+    "gobject-introspection",
+    "typelib(Gtk) = 3.0",
     # Dependencies that GTK looks for at runtime
     "libcanberra-gtk3-module",
     # Needed to provide WebKit2 at runtime
-    # "libwebkit2gtk3", "typelib(WebKit2)",
+    "libwebkit2gtk3",
+    "typelib(WebKit2)",
 ]
 
 [tool.briefcase.app.togatts.linux.system.arch]
@@ -144,9 +132,7 @@ system_requires = [
     "gvfs-client",
 ]
 
-linuxdeploy_plugins = [
-    "DEPLOY_GTK_VERSION=3 gtk",
-]
+linuxdeploy_plugins = ["DEPLOY_GTK_VERSION=3 gtk"]
 
 [tool.briefcase.app.togatts.linux.flatpak]
 flatpak_runtime = "org.gnome.Platform"
@@ -154,36 +140,26 @@ flatpak_runtime_version = "47"
 flatpak_sdk = "org.gnome.Sdk"
 
 [tool.briefcase.app.togatts.windows]
-requires = [
-    "toga-winforms~=0.4.8",
-]
+requires = ["toga-winforms~=0.4.8"]
 
 # Mobile deployments
 [tool.briefcase.app.togatts.iOS]
-requires = [
-    "toga-iOS~=0.4.8",
-    "std-nslog~=1.0.3",
-]
+requires = ["toga-iOS~=0.4.8", "std-nslog~=1.0.3"]
 
 [tool.briefcase.app.togatts.android]
-requires = [
-    "toga-android~=0.4.8",
-]
+requires = ["toga-android~=0.4.8"]
 
 base_theme = "Theme.MaterialComponents.Light.DarkActionBar"
 
 build_gradle_dependencies = [
     "com.google.android.material:material:1.12.0",
     # Needed for DetailedList
-    # "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0",
+    "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0",
     # Needed for MapView
-    # "org.osmdroid:osmdroid-android:6.1.20",
+    "org.osmdroid:osmdroid-android:6.1.20",
 ]
 
 # Web deployments
 [tool.briefcase.app.togatts.web]
-requires = [
-    "toga-web~=0.4.8",
-]
+requires = ["toga-web~=0.4.8"]
 style_framework = "Shoelace v2.3"
-
