@@ -54,6 +54,8 @@ system_requires = [
     "cairo-gobject-devel",
     # Needed to compile PyGObject wheel
     "gobject-introspection-devel",
+    "espeak",
+    "ffmpeg",
 ]
 
 system_runtime_requires = [
